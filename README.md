@@ -36,7 +36,34 @@ The finalised `Dockerfile` is available at [Dockerfile](./Dockerfile)
 
 ### 2.2 Q2 ̨- Application, Containerisation and CICD pipeline
 
+for more details on
+
+* cicd - branching strategy, versioning, release page, github actions and etc.
+* testing - unit testing, lint test
+* running/building the application locally
+* dockerization on the application
+
+refer to [q2-application-containerisation-and-cicd-pipeline](readme/q2-application-containerisation-and-cicd-pipeline.md)
+
 #### 2.2.1 make
+
+* test
+
+```bash
+make go.test
+```
+
+* run locally
+
+```bash
+make go.run
+```
+
+* build locally
+
+```bash
+make go.build
+```
 
 * build docker image
 
@@ -68,9 +95,6 @@ below are two examples of triggered pipelines
 
 * [448653554](https://github.com/Shuliyey/technical-tests/runs/448653554?check_suite_focus=true) (on push to `master` branch)
 * [448540674](https://github.com/Shuliyey/technical-tests/runs/448540674?check_suite_focus=true) (on push `'v*'` tags)
-
-#### 2.2.3 info
-refer to [q2-application-containerisation-and-cicd-pipeline](readme/q2-application-containerisation-and-cicd-pipeline.md) **(note: don't have to read this, just need to run the `make` tasks, they're self explanatory)**. Docker `multistage` build is used to optimise the application image, by default the application image runs under user `nobody` (**no** `root` permission) for enhanced application security at run time
 
 ### 2.3 Extra - Deployments (Kubernetes)
 
