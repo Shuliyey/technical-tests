@@ -1,4 +1,4 @@
-# Q1 - Application and Containerisation
+# q2 - Application, Containerisation and CICD pipeline
 
 ## 1. summary
 
@@ -18,7 +18,7 @@ go run main.go
 
 below is a screenshot of the application in the browser
 
-![anz technical zeyu q1 screenshot browser](anz-technical-zeyu-q1-screenshot-browser.png)
+![anz technical zeyu q2 screenshot browser](technical-tests-q2-screenshot-browser.png)
 
 * you can run go unit test locally through
 
@@ -29,7 +29,7 @@ go test
 
 below is a screenshot of unit test results
 
-![anz technical zeyu q1 unit test](anz-technical-zeyu-q1-unit-test.png)
+![anz technical zeyu q2 unit test](technical-tests-q2-unit-test.png)
 
 * you can build custom docker images (assume you installed `docker` locally) locally through
 
@@ -45,7 +45,7 @@ docker build -t <name>:<tag> .
 
 below is a screenshot of custom docker build
 
-![anz technical zeyu q1 custom docker build](anz-technical-zeyu-q1-custom-docker-build.png)
+![anz technical zeyu q2 custom docker build](technical-tests-q2-custom-docker-build.png)
 
 * you can run the custom docker images (assume you installed `docker` locally) locally through
 
@@ -57,7 +57,7 @@ docker run -it --rm -p 8000:8000 <name>:<tag>
 
 below is a screenshot of run custom docker
 
-![anz technical zeyu q1 run custom docker](anz-technical-zeyu-q1-run-custom-docker.png)
+![anz technical zeyu q2 run custom docker](technical-tests-q2-run-custom-docker.png)
 
 ## 2. local build environment requirements
 
@@ -99,9 +99,9 @@ pipeline triggered under this event will run
 * `push image to github package registry`
 * `push image to dockerhub registry`
 
-example of triggered pipeline on `master` branch [448653554](https://github.com/Shuliyey/anz-technical-zeyu/runs/448653554?check_suite_focus=true)
+example of triggered pipeline on `master` branch [448653554](https://github.com/Shuliyey/technical-tests/runs/448653554?check_suite_focus=true)
 
-![anz technical zeyu q1 pipeline master](anz-technical-zeyu-q1-pipeline-master.png)
+![anz technical zeyu q2 pipeline master](technical-tests-q2-pipeline-master.png)
 
 2. **push `'v*'` tags**
 
@@ -115,19 +115,19 @@ pipeline triggered under this event will run
 * `create release`
 * `upload release artifacts`
 
-example of triggered pipeline on `v*` tags [448540674](https://github.com/Shuliyey/anz-technical-zeyu/runs/448540674?check_suite_focus=true)
+example of triggered pipeline on `v*` tags [448540674](https://github.com/Shuliyey/technical-tests/runs/448540674?check_suite_focus=true)
 
-![anz technical zeyu q1 pipeline tags](anz-technical-zeyu-q1-pipeline-tags.png)
+![anz technical zeyu q2 pipeline tags](technical-tests-q2-pipeline-tags.png)
 
 ### 5.2 release and packages - github-release-page and github-packages
 
-* list of available releases is at https://github.com/Shuliyey/anz-technical-zeyu/releases
+* list of available releases is at https://github.com/Shuliyey/technical-tests/releases
 
-![anz technical zeyu q1 github release page](anz-technical-zeyu-q1-github-release-page.png)
+![anz technical zeyu q2 github release page](technical-tests-q2-github-release-page.png)
 
-* list of available github package hosted docker registries is at https://github.com/Shuliyey/anz-technical-zeyu/packages/128817/versions
+* list of available github package hosted docker registries is at https://github.com/Shuliyey/technical-tests/packages/128817/versions
 
-![anz technical zeyu q1 github packages](anz-technical-zeyu-q1-github-packages.png)
+![anz technical zeyu q2 github packages](technical-tests-q2-github-packages.png)
 
 ## 6. make tasks
 
@@ -138,7 +138,7 @@ builds the application docker image
 below environment variables can be altered
 
 * **GO_VERSION** (optional, default: 1.12.6)
-* **IMAGE_NAME** (optional, default: shuliyey/anz-technical-zeyu)
+* **IMAGE_NAME** (optional, default: shuliyey/technical-tests)
 * **IMAGE_TAG** (optional, default: latest)
 
 ### 6.2 docker.run (`make docker.run`)
@@ -151,7 +151,7 @@ below environment variables can be altered
 * **CONTAINER_PORT** (optional, default: 8000)
 * **HOST_PORT** (optional, default: 8000)
 * **RUNTIME_USER** (optional, default: (this uses default docker runtime user specified in `Dockerfile`))
-* **IMAGE_NAME** (optional, default: shuliyey/anz-technical-zeyu)
+* **IMAGE_NAME** (optional, default: shuliyey/technical-tests)
 * **IMAGE_TAG** (optional default: latest)
 
 **Note: make sure the `HOST_PORT` is available and not in use by other processes**

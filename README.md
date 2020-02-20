@@ -54,7 +54,7 @@ make docker.run
 
 there'll be message indicating the `local url` to visit (**running in local mode (docker run), visit app at localhost:`HOST_PORT`/version**), below is an example
 
-![anz technical zeyu q1 screenshot docker run example](readme/technical-tests-q1-screenshot-docker-run-example.png)
+![anz technical zeyu q1 screenshot docker run example](readme/technical-tests-q2-screenshot-docker-run-example.png)
 
 #### 2.2.2 github-actions
 
@@ -62,7 +62,7 @@ cicd pipeline is implemented in [github actions](https://github.com/features/act
 
 list of triggered pipelines can be visited on the repo's github-actions page (https://github.com/Shuliyey/technical-tests/actions)
 
-![anz technical zeyu q1 github actions pipelines](readme/technical-tests-q1-github-actions-pipelines.png)
+![anz technical zeyu q1 github actions pipelines](readme/technical-tests-q2-github-actions-pipelines.png)
 
 below are two examples of triggered pipelines
 
@@ -70,7 +70,7 @@ below are two examples of triggered pipelines
 * [448540674](https://github.com/Shuliyey/technical-tests/runs/448540674?check_suite_focus=true) (on push `'v*'` tags)
 
 #### 2.2.3 info
-refer to [q1-application-containerisation-and-cicd-pipeline](readme/q1-application-containerisation-and-cicd-pipeline.md) **(note: don't have to read this, just need to run the `make` tasks, they're self explanatory)**. Docker `multistage` build is used to optimise the application image, by default the application image runs under user `nobody` (**no** `root` permission) for enhanced application security at run time
+refer to [q2-application-containerisation-and-cicd-pipeline](readme/q2-application-containerisation-and-cicd-pipeline.md) **(note: don't have to read this, just need to run the `make` tasks, they're self explanatory)**. Docker `multistage` build is used to optimise the application image, by default the application image runs under user `nobody` (**no** `root` permission) for enhanced application security at run time
 
 ### 2.3 Extra - Deployments (Kubernetes)
 
@@ -86,7 +86,7 @@ make up
 
 **there'll be a section (like below) indicating the endpoint to visit the application and more information such as tailing the application service logs**
 
-![anz techical zeyu q2 screenshot make up endpoint](readme/technical-tests-q2-screenshot-make-up-endpoint.png)
+![anz techical zeyu q2 screenshot make up endpoint](readme/technical-tests-extra-screenshot-make-up-endpoint.png)
 
 * remove application manifests from kubernetes
 
@@ -94,7 +94,7 @@ make up
 make down
 ```
 
-* more info refer to [q2-kubernetes](readme/q2-kubernetes.md) **(note: the `make up` and `make down` are self explanatory and does the creation and removal of the required application resources on kubernetes, this is just for more reference)**
+* more info refer to [extra-kubernetes](readme/extra-kubernetes.md) **(note: the `make up` and `make down` are self explanatory and does the creation and removal of the required application resources on kubernetes, this is just for more reference)**
 
 ## 3. References
 
