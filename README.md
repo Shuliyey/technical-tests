@@ -187,7 +187,7 @@ make up
 make down
 ```
 
-* more info refer to [extra-kubernetes](readme/extra-kubernetes.md) **(note: the `make up` and `make down` are self explanatory and does the creation and removal of the required application resources on kubernetes, this is just for more reference)**
+* more info refer to [extra-deployments-kubernetes](readme/extra-deployments-kubernetes.md) **(note: the `make up` and `make down` are self explanatory and does the creation and removal of the required application resources on kubernetes, this is just for more reference)**
 
 ## 3. References
 

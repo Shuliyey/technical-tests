@@ -47,7 +47,7 @@ kubectl apply -f service.yaml
 # list of node ips can be obtained
 kubectl get nodes --namespace technical-test -o jsonpath="{.items[0].status.addresses[0].address}"
 # node port can be obtained
-kubectl get service/anz-technical-zeyu -o jsonpath="{.spec.ports[0].nodePort}" -n technical-test
+kubectl get service/technical-tests -o jsonpath="{.spec.ports[0].nodePort}" -n technical-test
 # pick one of the node ips and visit endpoint <node_ip>:<node_port>/version
 ```
 
