@@ -75,7 +75,7 @@ jobs:
           registry: docker.pkg.github.com
           username: ${{ steps.calculate-docker-info.outputs.actor }}
           password: ${{ github.token }}
-          buildargs: GO_VERSION
+          buildargs: GO_VERSION,ALPINE_VERSION
           tags: ${{ steps.calculate-docker-info.outputs.tags }}
           cache: ${{ github.event_name != 'schedule' }}
         if: contains(github.ref, 'refs/tags/v') || contains(github.ref, 'refs/heads/master')
@@ -90,7 +90,7 @@ jobs:
           name: ${{ steps.calculate-docker-info.outputs.repository }}
           username: shuliyey
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          buildargs: GO_VERSION
+          buildargs: GO_VERSION,ALPINE_VERSION
           tags: ${{ steps.calculate-docker-info.outputs.tags }}
           cache: ${{ github.event_name != 'schedule' }}
         if: contains(github.ref, 'refs/tags/v') || contains(github.ref, 'refs/heads/master')
