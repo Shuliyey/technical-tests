@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "anz-technical-zeyu"
+  name: "technical-tests"
   namespace: "technical-test"
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: "anz-technical-zeyu"
+      app: "technical-tests"
   template:
     metadata:
       labels:
-        app: "anz-technical-zeyu"
+        app: "technical-tests"
     spec:
       containers:
-      - image: shuliyey/anz-technical-zeyu:stable
+      - image: shuliyey/technical-tests:stable
         imagePullPolicy: Always
         name: "app"
         env:
@@ -57,5 +57,5 @@ spec:
       #             - key: "app"
       #               operator: In
       #               values:
-      #               - anz-technical-zeyu
+      #               - technical-tests
       #         topologyKey: "kubernetes.io/hostname"

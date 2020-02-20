@@ -20,7 +20,7 @@ import (
 // const variables
 const (
 	f          = "info.txt"
-	name       = "anz-technical-zeyu"
+	name       = "technical-tests"
 	ms         = "🚀 ☸️  🐳 🐧 (time is %s, golang version: %s, %s)"
 	versionURL = "/version"
 )
