@@ -30,9 +30,3 @@ up:
 
 down:
 	make k8s.delete
-
-ci.up:
-	./action.sh --action=ci.up
-
-ci.down:
-	./action.sh --action=ci.down
