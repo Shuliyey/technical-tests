@@ -40,7 +40,7 @@ jobs:
       - name: Run test
         id: run-test
         run: |
-          PATH="${PATH}:${GOPATH:-${HOME}/go/bin}" make go.test
+          make go.test
 
       - name: Generate `info.txt`
         id: generate-info
