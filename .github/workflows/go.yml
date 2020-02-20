@@ -28,6 +28,7 @@ jobs:
       - name: Install Dep
         id: install-dep
         run: |
+          env
           echo "install cli dependencies ..."
           go get -u golang.org/x/lint/golint
           echo "install cli dependencies ... done"
