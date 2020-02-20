@@ -142,15 +142,15 @@ example of triggered pipeline on `v*` tags [456898515](https://github.com/Shuliy
 
 ### 5.2 release and packages - github-release-page and github-packages
 
-* list of available releases is at https://github.com/Shuliyey/technical-tests/releases
+* list of available releases is at <https://github.com/Shuliyey/technical-tests/releases>
 
 ![technical tests q2 github release page](technical-tests-q2-github-release-page.png)
 
-* list of available github package hosted docker registries is at https://github.com/Shuliyey/technical-tests/packages/132324/versions
+* list of available github package hosted docker registries is at <https://github.com/Shuliyey/technical-tests/packages/132324/versions>
 
 ![technical tests q2 github packages](technical-tests-q2-github-packages.png)
 
-* list of available dockerhub images is at https://hub.docker.com/repository/docker/shuliyey/technical-tests/tags
+* list of available dockerhub images is at <https://hub.docker.com/repository/docker/shuliyey/technical-tests/tags>
 
 ![technical tests q2 github packages](technical-tests-q2-dockerhub-images.png)
 
@@ -192,8 +192,8 @@ builds the application docker image
 
 below environment variables can be altered
 
-* **ALPINE_VERSION** (optinal, default: [grabs the latest version from https://golang.org/VERSION?m=text])
-* **GO_VERSION** (optional, default: [grabs the latest version from http://dl-cdn.alpinelinux.org/alpine/])
+* **ALPINE_VERSION** (optinal, default: [grabs the latest version from <https://golang.org/VERSION?m=text>])
+* **GO_VERSION** (optional, default: [grabs the latest version from <http://dl-cdn.alpinelinux.org/alpine/>])
 * **IMAGE_NAME** (optional, default: shuliyey/technical-tests)
 * **IMAGE_TAG** (optional, default: $(git rev-parse --short HEAD))
 * **GENERATE_INFO** (optional, default: true)
