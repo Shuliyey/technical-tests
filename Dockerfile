@@ -9,7 +9,9 @@ ENV GO111MODULE=on
 
 WORKDIR /app
 
-ADD ./ /app
+ADD go.mod /app
+ADD go.sum /app
+ADD main.go /app
 
 RUN go build -o golang-test  .
 
