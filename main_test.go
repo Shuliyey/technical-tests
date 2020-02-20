@@ -2,11 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"reflect"
 	"strings"
 	"testing"
@@ -74,9 +72,7 @@ func TestVersionHandlerResponse(t *testing.T) {
 	info, err := ioutil.ReadFile(f)
 
 	if err != nil {
-		fmt.Printf("error reading file (%s), err: %s, exiting ...", f, err.Error())
-		fmt.Println()
-		os.Exit(1)
+		t.Errorf("error reading file (%s), err: %s", f, err.Error())
 	}
 
 	_info := strings.Split(string(info), "\n")
@@ -97,5 +93,4 @@ func TestVersionHandlerResponse(t *testing.T) {
 	if description != rInfo["description"] {
 		t.Errorf("Expecting \"version\" handler response to returned description: %s, returned description: %s instead", description, rInfo["description"])
 	}
-
 }
