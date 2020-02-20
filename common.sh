@@ -100,7 +100,7 @@ generate_git_info() {
   local src_info="${dir_name}/info"
   local dest_info="${dir_name}/info.txt"
 
-  git fetch --tags > /dev/null
+  git fetch --tags > /dev/null || true
   local git_sha=$(git rev-parse HEAD)
   local tag=$(git tag --points-at ${git_sha})
   if [ ! "$(echo ${tag})" ]; then
