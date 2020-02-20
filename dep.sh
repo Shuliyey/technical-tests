@@ -80,6 +80,7 @@ check_dep() {
       local missing=()
       local found=()
       local optional=()
+      ;;
     go.build)
       local DEFAULT_GENERATE_INFO="true"
 
