@@ -29,13 +29,13 @@ jobs:
         id: install-dep
         run: |
           env
-          echo "install cli dependencies ..."
+          echo -e "install \033[0;36mcli\033[0m dependencies ..."
           go get -u golang.org/x/lint/golint
-          echo "install cli dependencies ... done"
-          echo "install application packages ..."
+          echo -e "install \033[0;36mcli\033[0m dependencies ... \033[0;32mdone\033[0m"
+          echo -e "install \033[0;36mapplication\033[0m packages ..."
           # application packages
           go get
-          echo "install application packages ... done"
+          echo -e "install \033[0;36mapplication\033[0m packages ... \033[0;32mdone\033[0m"
 
       - name: Run test
         id: run-test
