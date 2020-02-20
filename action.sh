@@ -129,7 +129,7 @@ case "${action}" in
       user="-u ${RUNTIME_USER}"
     fi
 
-    docker run -it --rm ${user} -e PORT=${CONTAINER_PORT} -p ${HOST_PORT}:${CONTAINER_PORT} ${IMAGE_NAME}:${IMAGE_TAG}
+    docker run -it --rm ${user} -e PORT=${CONTAINER_PORT} -e BIND_HOST=${CONTAINER_BIND_HOST} -p ${HOST_PORT}:${CONTAINER_PORT} ${IMAGE_NAME}:${IMAGE_TAG}
     ;;
   k8s.apply)
     ${dir_name}/dep.sh --action=k8s

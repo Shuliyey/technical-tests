@@ -107,13 +107,14 @@ check_dep() {
       ;;
     docker.run)
       local DEFAULT_CONTAINER_PORT=8000
+      local DEFAULT_CONTAINER_BIND_HOST="0.0.0.0"
       local DEFAULT_HOST_PORT=${DEFAULT_CONTAINER_PORT}
       local DEFAULT_RUNTIME_USER=""
       local DEFAULT_IMAGE_NAME="shuliyey/technical-tests"
       local DEFAULT_IMAGE_TAG="$(git rev-parse --short HEAD)"
 
       local ENVS=()
-      local OPTIONAL_ENV=("CONTAINER_PORT" "HOST_PORT" "RUNTIME_USER" "IMAGE_NAME" "IMAGE_TAG")
+      local OPTIONAL_ENV=("CONTAINER_PORT" "CONTAINER_BIND_HOST" "HOST_PORT" "RUNTIME_USER" "IMAGE_NAME" "IMAGE_TAG" "BIND_HOST")
       local missing=()
       local found=()
       local optional=()

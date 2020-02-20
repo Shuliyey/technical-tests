@@ -30,7 +30,7 @@ below terminal **applications/tools** needs to be installed
 The finalised `Dockerfile` is available at [Dockerfile](./Dockerfile)
 
 * multi-stage build
-  * the `builder` section will be responsible of producing the final application binary `/app/golang-test`
+  * the `builder` section is responsible for producing the final application binary `/app/golang-test`
   * the final docker image uses `alpine` as the minimal based image and port the final application `/app/golang-test` produced by the `builder` section. This keeps the final image at its minimum, as the runtime image doesn't need the full dependency for building the application (golang packages dependent libraries along side with the application into a single executable binary)
 * cache optmisation
   * `Dockerfile` structure has been designed to achieve cache optmisation as it puts the static defined steps before the dynamic dependend steps, meaning the static steps will be cached for optmisation

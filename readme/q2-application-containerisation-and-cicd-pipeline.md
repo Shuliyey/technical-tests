@@ -70,7 +70,7 @@ below are the application environment variables
 
 ### 4.1 docker `multistage` build
 
-[Dockerfile](../src/Dockerfile) to build the application image uses `multistage` build to optimise the final application image size/structure, first stage uses `golang` as the base image to build the final binary (`app`), this binary (`app`) is the only artifact that gets passed/embedded to the next stage (which is a clean `alpine` base image)
+[Dockerfile](../Dockerfile) to build the application image uses `multistage` build to optimise the final application image size/structure, first stage uses `golang` as the base image to build the final binary (`app`), this binary (`app`) is the only artifact that gets passed/embedded to the next stage (which is a clean `alpine` base image)
 
 ### 4.2 `nobody` at docker application runtime
 
@@ -109,12 +109,16 @@ pipeline triggered under this event will run
 * `run test`
 * `build artifacts`
 
+![anz technical zeyu q2 pipeline master](technical-tests-q2-pipeline-branch.png)
+
 3. **pull_request to `master` branch**
 
 pipeline triggered under this event will run
 
 * `run test`
 * `build artifacts`
+
+![anz technical zeyu q2 pipeline master](technical-tests-q2-pipeline-pull-request-master.png)
 
 4. **push `'v*'` tags**
 
@@ -150,9 +154,10 @@ builds the application docker image
 
 below environment variables can be altered
 
-* **GO_VERSION** (optional, default: 1.12.6)
+* **ALPINE_VERSION** (optinal, default: [grabs the latest version from https://golang.org/VERSION?m=text])
+* **GO_VERSION** (optional, default: [grabs the latest version from http://dl-cdn.alpinelinux.org/alpine/])
 * **IMAGE_NAME** (optional, default: shuliyey/technical-tests)
-* **IMAGE_TAG** (optional, default: latest)
+* **IMAGE_TAG** (optional, default: $(git rev-parse --short HEAD))
 * **GENERATE_INFO** (optional, default: true)
 
 ### 6.2 docker.run (`make docker.run`)
@@ -161,12 +166,12 @@ runs the application docker image
 
 below environment variables can be altered
 
-* **ENV** (optional, default: dev)
 * **CONTAINER_PORT** (optional, default: 8000)
+* **CONTAINER_BIND_HOST** (optional, default: "0.0.0.0")
 * **HOST_PORT** (optional, default: 8000)
 * **RUNTIME_USER** (optional, default: (this uses default docker runtime user specified in `Dockerfile`))
 * **IMAGE_NAME** (optional, default: shuliyey/technical-tests)
-* **IMAGE_TAG** (optional default: latest)
+* **IMAGE_TAG** (optional default: $(git rev-parse --short HEAD))
 
 **Note: make sure the `HOST_PORT` is available and not in use by other processes**
 
