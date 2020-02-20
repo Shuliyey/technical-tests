@@ -159,6 +159,10 @@ below are three examples of triggered pipelines
 * [456992006](https://github.com/Shuliyey/technical-tests/runs/456992006?check_suite_focus=true) (on pull_request to `master` branch)
 * [456898515](https://github.com/Shuliyey/technical-tests/runs/456898515?check_suite_focus=true) (on push `'v*'` tags)
 
+<https://github.com/Shuliyey/technical-tests/pull/4> is an example pull requests (github-actions pipeline will runs a set of test to ensure quality of the pull request before it is merged to `master` (the "stable" branch), preventing bad code gets merged to "stable" `master` branch)
+
+![technical tests q2 github actions pull request example](readme/technical-tests-q2-github-actions-pull-request-example.png)
+
 ### 2.3 Extra - Deployments (Kubernetes)
 
 #### 2.3.1 make
