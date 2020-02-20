@@ -37,4 +37,4 @@ vendor/
 .kube/
 
 # assets
-# info.txt
+info.txt

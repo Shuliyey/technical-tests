@@ -81,15 +81,15 @@ func main() {
 }
 
 func helloworld(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, string(quote.HelloV3()))
+	fmt.Fprintf(w, quote.HelloV3())
 }
 
 func goquote(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, string(quote.GoV3()))
+	fmt.Fprintf(w, quote.GoV3())
 }
 
 func opttruth(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, string(quote.GoV3()))
+	fmt.Fprintf(w, quote.GoV3())
 }
 
 func version(w http.ResponseWriter, r *http.Request) {
