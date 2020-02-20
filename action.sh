@@ -72,6 +72,7 @@ case "${action}" in
 
     infoMsg "${msg}"
     golint .
+    infoMsg "${CYAN}golint${NC} returned (status code) ${GREEN}$?${NC}"
     doneMsg "${msg}"
 
     msg="running ${CYAN}unit${NC} test ..."
