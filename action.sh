@@ -37,24 +37,17 @@ done
 ################### core ###################
 
 case "${action}" in
+  go.test)
+    ${dir_name}/dep.sh --action=${action}
+    eval "$(${dir_name}/dep.sh --set_default --action=${action})"
+
+    go test
+    ;;
   go.run)
     ${dir_name}/dep.sh --action=${action}
     eval "$(${dir_name}/dep.sh --set_default --action=${action})"
-    git fetch --tags > /dev/null
-    git_sha=$(git rev-parse HEAD)
-    tag=$(git tag --points-at ${git_sha})
-    if [ ! "$(echo ${tag})" ]; then
-      release=$(git tag --list | sort -V -r | head -n 1)
-      release=${release#*v}
-      release=(${release//./ })
-      tag=v${release[0]:-0}.$((release[1] + 1)).0-pre
-    fi
 
-    cat << EOF > info.txt
-${tag}
-${git_sha}
-$(cat info)
-EOF
+    generate_git_info
 
     go run main.go
     ;;
@@ -62,23 +55,9 @@ EOF
     ${dir_name}/dep.sh --action=${action}
     eval "$(${dir_name}/dep.sh --set_default --action=${action})"
 
-    git fetch --tags > /dev/null
-    git_sha=$(git rev-parse HEAD)
-    tag=$(git tag --points-at ${git_sha})
-    if [ ! "$(echo ${tag})" ]; then
-      release=$(git tag --list | sort -V -r | head -n 1)
-      release=${release#*v}
-      release=(${release//./ })
-      tag=v${release[0]}.$((release[1] + 1)).0-pre
-    fi
+    generate_git_info
 
-    cat << EOF > info.txt
-${tag}
-${git_sha}
-$(cat info)
-EOF
-
-    docker build --build-arg GO_VERSION=${GO_VERSION} -t ${IMAGE_NAME}:${IMAGE_TAG} .
+    docker build --build-arg GO_VERSION=${GO_VERSION} --build-arg ALPINE_VERSION=${ALPINE_VERSION} -t ${IMAGE_NAME}:${IMAGE_TAG} .
     ;;
   docker.run)
     ${dir_name}/dep.sh --action=${action}
@@ -93,7 +72,7 @@ EOF
       user="-u ${RUNTIME_USER}"
     fi
 
-    docker run -it --rm ${user} -e ENV=${ENV} -e PORT=${CONTAINER_PORT} -p ${HOST_PORT}:${CONTAINER_PORT} ${IMAGE_NAME}:${IMAGE_TAG}
+    docker run -it --rm ${user} -e PORT=${CONTAINER_PORT} -p ${HOST_PORT}:${CONTAINER_PORT} ${IMAGE_NAME}:${IMAGE_TAG}
     ;;
   k8s.apply)
     ${dir_name}/dep.sh --action=k8s

@@ -75,17 +75,17 @@ check_dep() {
       ;;
     docker.build)
       local DEFAULT_GO_VERSION=$(curl -s "https://golang.org/VERSION?m=text" | sed -E "s/^go//g")
+      local DEFAULT_ALPINE_VERSION=$(curl -s http://dl-cdn.alpinelinux.org/alpine/ | grep -E '^<a href="v\d' | awk '{print $2}' | sed -E 's/(^href="v.+\/">v|\/<\/a>$)//g' | sort -V -r | head -n 1)
       local DEFAULT_IMAGE_NAME="shuliyey/techinical-test"
       local DEFAULT_IMAGE_TAG="latest"
 
       local ENVS=()
-      local OPTIONAL_ENV=("GO_VERSION" "IMAGE_NAME" "IMAGE_TAG")
+      local OPTIONAL_ENV=("GO_VERSION" "ALPINE_VERSION" "IMAGE_NAME" "IMAGE_TAG")
       local missing=()
       local found=()
       local optional=()
       ;;
     docker.run)
-      local DEFAULT_ENV="dev"
       local DEFAULT_CONTAINER_PORT=8000
       local DEFAULT_HOST_PORT=${DEFAULT_CONTAINER_PORT}
       local DEFAULT_RUNTIME_USER=""
@@ -93,7 +93,7 @@ check_dep() {
       local DEFAULT_IMAGE_TAG="latest"
 
       local ENVS=()
-      local OPTIONAL_ENV=("ENV" "CONTAINER_PORT" "HOST_PORT" "RUNTIME_USER" "IMAGE_NAME" "IMAGE_TAG")
+      local OPTIONAL_ENV=("CONTAINER_PORT" "HOST_PORT" "RUNTIME_USER" "IMAGE_NAME" "IMAGE_TAG")
       local missing=()
       local found=()
       local optional=()

@@ -95,6 +95,28 @@ wait_for_endpoint() {
   doneMsg "${msg}"
 }
 
+generate_git_info() {
+  local dir_name=$(cd $(dirname $0) && pwd)
+  local src_info="${dir_name}/info"
+  local dest_info="${dir_name}/info.txt"
+
+  git fetch --tags > /dev/null
+  local git_sha=$(git rev-parse HEAD)
+  local tag=$(git tag --points-at ${git_sha})
+  if [ ! "$(echo ${tag})" ]; then
+    local release=$(git tag --list | sort -V -r | head -n 1)
+    local release=${release#*v}
+    local release=(${release//./ })
+    local tag=v${release[0]:-0}.$((release[1] + 1)).0-pre
+  fi
+
+  cat << EOF > ${dest_info}
+${tag}
+${git_sha}
+$(cat ${src_info})
+EOF
+}
+
 import_aws_profile() {
   for kv in "$@"; do
     case "${kv}" in

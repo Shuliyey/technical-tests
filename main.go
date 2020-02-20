@@ -42,7 +42,7 @@ func GetEnv(key string) string {
 
 	value, exists := os.LookupEnv(key)
 	if !exists {
-		value, _ = defaultValues[key]
+		value = defaultValues[key]
 	}
 
 	return value
@@ -62,6 +62,7 @@ func FormatMessage(msg string) string {
 
 func main() {
 	fmt.Printf("starting http server (%s)", GetEnv("BIND_HOST")+":"+GetEnv("PORT"))
+	fmt.Println()
 
 	r := mux.NewRouter()
 	r.HandleFunc("/", helloworld)
@@ -80,15 +81,15 @@ func main() {
 }
 
 func helloworld(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, quote.HelloV3())
+	fmt.Fprintf(w, string(quote.HelloV3()))
 }
 
 func goquote(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, quote.GoV3())
+	fmt.Fprintf(w, string(quote.GoV3()))
 }
 
 func opttruth(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, quote.GoV3())
+	fmt.Fprintf(w, string(quote.GoV3()))
 }
 
 func version(w http.ResponseWriter, r *http.Request) {

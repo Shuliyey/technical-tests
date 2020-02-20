@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "anz-technical-zeyu"
+  namespace: "technical-test"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "anz-technical-zeyu"
+  template:
+    metadata:
+      labels:
+        app: "anz-technical-zeyu"
+    spec:
+      containers:
+      - image: shuliyey/anz-technical-zeyu:stable
+        imagePullPolicy: Always
+        name: "app"
+        env:
+        - name: "PORT"
+          value: "8000"
+        - name: "ENV"
+          value: "prod"
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "100m"
+          limits:
+            memory: "64Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /version
+            port: 8000
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /version
+            port: 8000
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 3
+      # affinity:
+      #   podAntiAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       - labelSelector:
+      #           matchExpressions:
+      #             - key: "app"
+      #               operator: In
+      #               values:
+      #               - anz-technical-zeyu
+      #         topologyKey: "kubernetes.io/hostname"

@@ -1,3 +1,6 @@
+info.generate:
+	./action --action=info.generate
+
 go.run:
 	./action.sh --action=go.run
 
