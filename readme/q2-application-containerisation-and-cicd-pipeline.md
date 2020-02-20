@@ -140,6 +140,11 @@ example of triggered pipeline on `v*` tags [456898515](https://github.com/Shuliy
 
 ![technical tests q2 pipeline tags](technical-tests-q2-pipeline-tags.png)
 
+This repo's github-actions pipeline is designed to publish docker images on push to `master` branch and `v*` tags.
+
+* push to `master` branch will build docker image with tag `master-${GITHUB_RUN_NUMBER}` and `latest`
+* push to `v*` tags will build docker image with tag `<tag_name>` and `stable`
+
 ### 5.2 release and packages - github-release-page and github-packages
 
 * list of available releases is at <https://github.com/Shuliyey/technical-tests/releases>
