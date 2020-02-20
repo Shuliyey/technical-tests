@@ -3,10 +3,11 @@ on:
   push:
     branches:
       - '*'
-    pull_request:
-      - master
     tags:
       - v*
+  pull_request:
+    branches:
+      - master
 jobs:
   golang:
     name: Golang Pipline
