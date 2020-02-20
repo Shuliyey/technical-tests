@@ -31,11 +31,11 @@ The finalised `Dockerfile` is available at [Dockerfile](./Dockerfile)
 
 * multi-stage build
   * the `builder` section will be responsible of producing the final application binary `/app/golang-test`
-  * the final docker image uses `alpine` as the minimal based image and port the final application `/app/golang-test` produced by the `builder` section. This keeps the final image at its minimum, as the runtime image doesn not need a full dependency to build the application
+  * the final docker image uses `alpine` as the minimal based image and port the final application `/app/golang-test` produced by the `builder` section. This keeps the final image at its minimum, as the runtime image doesn't need the full dependency for building the application (golang packages dependent libraries along side with the application into a single executable binary)
 * cache optmisation
   * `Dockerfile` structure has been designed to achieve cache optmisation as it puts the static defined steps before the dynamic dependend steps, meaning the static steps will be cached for optmisation
 
-### 2.2 Q2 ̨- Application, Containerisation and CICD pipeline
+### 2.2 Q2 - Application, Containerisation and CICD pipeline
 
 for more details on
 
@@ -82,7 +82,7 @@ make docker.run
 
 there'll be message indicating the `local url` to visit (**running in local mode (docker run), visit app at localhost:`HOST_PORT`/version**), below is an example
 
-![anz technical zeyu q1 screenshot docker run example](readme/technical-tests-q2-screenshot-docker-run-example.png)
+![anz technical zeyu q2 screenshot docker run example](readme/technical-tests-q2-screenshot-docker-run-example.png)
 
 #### 2.2.2 github-actions
 
