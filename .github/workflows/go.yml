@@ -26,7 +26,7 @@ jobs:
         run: |
           go get -u golang.org/x/lint/golint
           which curl
-          which golint
+          echo ${GOPATH}
 
       - name: Run test
         id: run-test
