@@ -13,7 +13,7 @@ go run main.go
 
 below is a screenshot of the application in the browser
 
-![anz technical zeyu q2 screenshot browser](technical-tests-q2-screenshot-browser.png)
+![technical tests q2 screenshot browser](technical-tests-q2-screenshot-browser.png)
 
 * if you have golint installed under **GOPATH** (`go get -u golang.org/x/lint/golint`)
 
@@ -29,7 +29,7 @@ go test
 
 below is a screenshot of unit test results
 
-![anz technical zeyu q2 unit test](technical-tests-q2-unit-test.png)
+![technical tests q2 unit test](technical-tests-q2-unit-test.png)
 
 * you can build custom docker images (assume you installed `docker` locally) locally through
 
@@ -40,7 +40,7 @@ docker build -t <name>:<tag> .
 
 below is a screenshot of custom docker build
 
-![anz technical zeyu q2 custom docker build](technical-tests-q2-custom-docker-build.png)
+![technical tests q2 custom docker build](technical-tests-q2-custom-docker-build.png)
 
 * you can run the custom docker images (assume you installed `docker` locally) locally through
 
@@ -52,7 +52,7 @@ docker run -it --rm -p 8000:8000 <name>:<tag>
 
 below is a screenshot of run custom docker
 
-![anz technical zeyu q2 run custom docker](technical-tests-q2-run-custom-docker.png)
+![technical tests q2 run custom docker](technical-tests-q2-run-custom-docker.png)
 
 ## 2. local build environment requirements
 
@@ -76,7 +76,7 @@ below are the application environment variables
 
 to ensure enhanced application security at run time, the final docker image use `nobody` (**no** `root` permission) as the default runtime user
 
-## 5. cicd pipeline, release and packages
+## 5. cicd pipeline, release and packaging
 
 ### 5.1 cicd pipeline - github-actions
 
@@ -84,7 +84,11 @@ cicd pipeline is implemented in [github actions](https://github.com/features/act
 
 pipeline follows below branching designs
 
+* **master** branch is the default "stable" (theoratically always "releasable") branch
+* **'\*/\*'** branch is checkouted out from master for development (e.g `feature/*`, `bugfix/*`, `hotfix/*`)
+* **'v\*'** tag is created for release (tagged against a "stable" commit in `master` branch). **Note** it is suggested to use [Semantic Versioning](https://semver.org/) for release tag (`v<major>.<minor>.<hotfix>`)
 
+![technical tests](technical-tests-q2-branching-workflow.png)
 
 pipeline will trigger on the below events
 
@@ -100,7 +104,7 @@ pipeline triggered under this event will run
 
 example of triggered pipeline on `master` branch [456994692](https://github.com/Shuliyey/technical-tests/runs/456994692?check_suite_focus=true) (on push to `master` branch)
 
-![anz technical zeyu q2 pipeline master](technical-tests-q2-pipeline-master.png)
+![technical tests q2 pipeline master](technical-tests-q2-pipeline-master.png)
 
 2. **push to `'*/*'` branch**
 
@@ -109,7 +113,7 @@ pipeline triggered under this event will run
 * `run test`
 * `build artifacts`
 
-![anz technical zeyu q2 pipeline master](technical-tests-q2-pipeline-branch.png)
+![technical tests q2 pipeline master](technical-tests-q2-pipeline-branch.png)
 
 3. **pull_request to `master` branch**
 
@@ -118,7 +122,7 @@ pipeline triggered under this event will run
 * `run test`
 * `build artifacts`
 
-![anz technical zeyu q2 pipeline master](technical-tests-q2-pipeline-pull-request-master.png)
+![technical tests q2 pipeline master](technical-tests-q2-pipeline-pull-request-master.png)
 
 4. **push `'v*'` tags**
 
@@ -134,21 +138,46 @@ pipeline triggered under this event will run
 
 example of triggered pipeline on `v*` tags [456898515](https://github.com/Shuliyey/technical-tests/runs/456898515?check_suite_focus=true)
 
-![anz technical zeyu q2 pipeline tags](technical-tests-q2-pipeline-tags.png)
+![technical tests q2 pipeline tags](technical-tests-q2-pipeline-tags.png)
 
 ### 5.2 release and packages - github-release-page and github-packages
 
 * list of available releases is at https://github.com/Shuliyey/technical-tests/releases
 
-![anz technical zeyu q2 github release page](technical-tests-q2-github-release-page.png)
+![technical tests q2 github release page](technical-tests-q2-github-release-page.png)
 
-* list of available github package hosted docker registries is at https://github.com/Shuliyey/technical-tests/packages/128817/versions
+* list of available github package hosted docker registries is at https://github.com/Shuliyey/technical-tests/packages/132324/versions
 
-![anz technical zeyu q2 github packages](technical-tests-q2-github-packages.png)
+![technical tests q2 github packages](technical-tests-q2-github-packages.png)
+
+* list of available dockerhub images is at https://hub.docker.com/repository/docker/shuliyey/technical-tests/tags
+
+![technical tests q2 github packages](technical-tests-q2-dockerhub-images.png)
 
 ## 6. make tasks
 
-### 6.1 docker.build (`make docker.build`)
+### 6.1 info.generate
+
+generate application related information (e.g `lastcommitsha`, `version`, `description` and etc.)
+
+### 6.2 go.test
+
+runs lint and unit test
+
+### 6.3 go.run
+
+runs application locally
+
+below environment variables can be altered
+
+* **BIND_HOST** (optional, default: "0.0.0.0")
+* **PORT** (optional, default: 8000)
+
+### 6.3 go.build
+
+builds application locally
+
+### 6.5 docker.build (`make docker.build`)
 
 builds the application docker image
 
@@ -160,7 +189,7 @@ below environment variables can be altered
 * **IMAGE_TAG** (optional, default: $(git rev-parse --short HEAD))
 * **GENERATE_INFO** (optional, default: true)
 
-### 6.2 docker.run (`make docker.run`)
+### 6.6 docker.run (`make docker.run`)
 
 runs the application docker image
 

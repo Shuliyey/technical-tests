@@ -48,37 +48,39 @@ refer to [q2-application-containerisation-and-cicd-pipeline](readme/q2-applicati
 
 #### 2.2.1 make
 
-* git info
+* **generate info** - generates the application related information (e.g `version`, `lastcommitsha`, `description` and etc)
 
 ```bash
 make info.generate
 ```
 
-* test
+* **test** - runs lint and unit test
 
 ```bash
 make go.test
 ```
 
-* run locally
+* **run locally** - runs application on local workstation
 
 ```bash
 make go.run
 ```
 
-* build locally
+* **build locally** - builds application on local workstation
 
 ```bash
 make go.build
 ```
 
-* build docker image
+* **build docker image** - builds docker image locally with certain convention (e.g uses default `short git commit sha` as `<tag>`), behaviour can be altered based on environment variables.
 
 ```bash
 make docker.build
 ```
 
-* run docker image
+![technical tests q2 screenshot docker build example](readme/technical-tests-q2-screenshot-docker-build-example.png)
+
+* **run docker image** - runs docker image locally with certain convention (e.g uses binds to port `8000` on host workstation), behaviour can be altered based on environment variables.
 
 ```bash
 make docker.run
@@ -88,7 +90,7 @@ make docker.run
 
 there'll be message indicating the `local url` to visit (**running in local mode (docker run), visit app at localhost:`HOST_PORT`/version**), below is an example
 
-![anz technical zeyu q2 screenshot docker run example](readme/technical-tests-q2-screenshot-docker-run-example.png)
+![technical tests q2 screenshot docker run example](readme/technical-tests-q2-screenshot-docker-run-example.png)
 
 #### 2.2.2 github-actions
 
@@ -96,7 +98,7 @@ cicd pipeline is implemented in [github actions](https://github.com/features/act
 
 list of triggered pipelines can be visited on the repo's github-actions page (https://github.com/Shuliyey/technical-tests/actions)
 
-![anz technical zeyu q2 github actions pipelines](readme/technical-tests-q2-github-actions-pipelines.png)
+![technical tests q2 github actions pipelines](readme/technical-tests-q2-github-actions-pipelines.png)
 
 below are three examples of triggered pipelines
 

@@ -28,7 +28,6 @@ jobs:
       - name: Install Dep
         id: install-dep
         run: |
-          env
           echo -e "install \033[0;36mcli\033[0m dependencies ..."
           go get -u golang.org/x/lint/golint
           echo -e "install \033[0;36mcli\033[0m dependencies ... \033[0;32mdone\033[0m"
@@ -37,17 +36,16 @@ jobs:
           go get
           echo -e "install \033[0;36mapplication\033[0m packages ... \033[0;32mdone\033[0m"
 
-      - name: Run test
-        id: run-test
-        run: |
-          make go.test
-
       - name: Generate `info.txt`
         id: generate-info
         run: |
           make info.generate
           echo "##[set-output name=info;]$(cat info.txt | sed "s/%/%25/" | sed -z "s/\\n/%0A/g" | sed -z "s/\\r/%0D/g" )"
-        if: contains(github.ref, 'refs/tags/v') || contains(github.ref, 'refs/heads/master')
+
+      - name: Run test
+        id: run-test
+        run: |
+          make go.test
 
       - name: Build `app`
         id: build-app
