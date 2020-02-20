@@ -61,16 +61,7 @@ jobs:
       - name: Calculate Docker Info
         id: calculate-docker-info
         run: |
-          tags=${GITHUB_REF##*/}
-          if echo ${GITHUB_REF} | grep -q -E "^refs/heads/"; then
-            tags=${tags}-${GITHUB_RUN_NUMBER},latest
-          else
-            tags=${tags},stable
-          fi
-          echo "##[set-output name=tag;]${tags%%,*}"
-          echo "##[set-output name=tags;]${tags}"
-          echo "##[set-output name=repository;]$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]')"
-          echo "##[set-output name=actor;]$(echo ${GITHUB_ACTOR} | tr '[:upper:]' '[:lower:]')"
+          GITCLOUD_PROVIDER=github make docker.info
         if: contains(github.ref, 'refs/tags/v') || contains(github.ref, 'refs/heads/master')
           
       - name: Publish to Github Registry

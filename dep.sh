@@ -63,6 +63,15 @@ get_default() {
 check_dep() {
   local dir_name=$(cd `dirname $0` && pwd)
   case ${action} in
+    docker.info)
+      local DEFAULT_GITCLOUD_PROVIDER=github
+
+      local ENVS=()
+      local OPTIONAL_ENV=("GITCLOUD_PROVIDER")
+      local missing=()
+      local found=()
+      local optional=()
+      ;;
     go.build)
       local DEFAULT_GENERATE_INFO="true"
 

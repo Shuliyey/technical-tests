@@ -43,6 +43,27 @@ case "${action}" in
 
     generate_git_info
     ;;
+  docker.info)
+    ${dir_name}/dep.sh --action=${action}
+    eval "$(${dir_name}/dep.sh --set_default --action=${action})"
+
+    case "${GITCLOUD_PROVIDER}" in
+      github)
+        tags=${GITHUB_REF##*/}
+        if echo ${GITHUB_REF} | grep -q -E "^refs/heads/"; then
+          tags="${tags}-${GITHUB_RUN_NUMBER},latest"
+        else
+          tags="${tags},stable"
+        fi
+        echo "##[set-output name=tag;]${tags%%,*}"
+        echo "##[set-output name=tags;]${tags}"
+        echo "##[set-output name=repository;]$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]')"
+        echo "##[set-output name=actor;]$(echo ${GITHUB_ACTOR} | tr '[:upper:]' '[:lower:]')"
+        ;;
+      *)
+        ;;
+    esac
+    ;;
   go.test)
     ${dir_name}/dep.sh --action=${action}
     eval "$(${dir_name}/dep.sh --set_default --action=${action})"

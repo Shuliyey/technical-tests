@@ -10,6 +10,9 @@ go.build:
 go.run:
 	./action.sh --action=go.run
 
+docker.info:
+	./action.sh --action=docker.info
+
 docker.build:
 	./action.sh --action=docker.build
 
