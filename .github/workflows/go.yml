@@ -45,7 +45,7 @@ jobs:
       - name: Run test
         id: run-test
         run: |
-          make go.test
+          GENERATE_INFO=false make go.test
 
       - name: Build `app`
         id: build-app

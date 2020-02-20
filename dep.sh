@@ -72,6 +72,14 @@ check_dep() {
       local found=()
       local optional=()
       ;;
+    go.test)
+      local DEFAULT_GENERATE_INFO="true"
+
+      local ENVS=()
+      local OPTIONAL_ENV=("GENERATE_INFO")
+      local missing=()
+      local found=()
+      local optional=()
     go.build)
       local DEFAULT_GENERATE_INFO="true"
 

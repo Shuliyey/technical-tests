@@ -164,6 +164,10 @@ generate application related information (e.g `lastcommitsha`, `version`, `descr
 
 runs lint and unit test
 
+below environment variables can be altered
+
+* **GENERATE_INFO** (optional, default: true)
+
 ### 6.3 go.run
 
 runs application locally
@@ -172,10 +176,15 @@ below environment variables can be altered
 
 * **BIND_HOST** (optional, default: "0.0.0.0")
 * **PORT** (optional, default: 8000)
+* **GENERATE_INFO** (optional, default: true)
 
 ### 6.3 go.build
 
 builds application locally
+
+below environment variables can be altered
+
+* **GENERATE_INFO** (optional, default: true)
 
 ### 6.5 docker.build (`make docker.build`)
 

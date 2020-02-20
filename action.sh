@@ -68,6 +68,10 @@ case "${action}" in
     ${dir_name}/dep.sh --action=${action}
     eval "$(${dir_name}/dep.sh --set_default --action=${action})"
 
+    if [ "$(echo ${GENERATE_INFO} | tr '[[:upper:]]' '[[:lower:]]')" == "true" ]; then
+      generate_git_info
+    fi
+
     msg="running ${CYAN}golint${NC} test ..."
 
     infoMsg "${msg}"
