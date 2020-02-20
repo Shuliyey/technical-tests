@@ -37,17 +37,45 @@ done
 ################### core ###################
 
 case "${action}" in
+  info.generate)
+    ${dir_name}/dep.sh --action=${action}
+    eval "$(${dir_name}/dep.sh --set_default --action=${action})"
+
+    generate_git_info
+    ;;
   go.test)
     ${dir_name}/dep.sh --action=${action}
     eval "$(${dir_name}/dep.sh --set_default --action=${action})"
 
+    msg="running ${CYAN}golint${NC} test ..."
+
+    infoMsg "${msg}"
+    golint .
+    doneMsg "${msg}"
+
+    msg="running ${CYAN}unit${NC} test ..."
+
+    infoMsg "${msg}"
     go test
+    doneMsg "${msg}"
+    ;;
+  go.build)
+    ${dir_name}/dep.sh --action=${action}
+    eval "$(${dir_name}/dep.sh --set_default --action=${action})"
+
+    if [ "$(echo ${GENERATE_INFO} | tr '[[:upper:]]' '[[:lower:]]')" == "true" ]; then
+      generate_git_info
+    fi
+
+    go build -o app main.go
     ;;
   go.run)
     ${dir_name}/dep.sh --action=${action}
     eval "$(${dir_name}/dep.sh --set_default --action=${action})"
 
-    generate_git_info
+    if [ "$(echo ${GENERATE_INFO} | tr '[[:upper:]]' '[[:lower:]]')" == "true" ]; then
+      generate_git_info
+    fi
 
     go run main.go
     ;;
@@ -55,7 +83,9 @@ case "${action}" in
     ${dir_name}/dep.sh --action=${action}
     eval "$(${dir_name}/dep.sh --set_default --action=${action})"
 
-    generate_git_info
+    if [ "$(echo ${GENERATE_INFO} | tr '[[:upper:]]' '[[:lower:]]')" == "true" ]; then
+      generate_git_info
+    fi
 
     docker build --build-arg GO_VERSION=${GO_VERSION} --build-arg ALPINE_VERSION=${ALPINE_VERSION} -t ${IMAGE_NAME}:${IMAGE_TAG} .
     ;;
@@ -136,13 +166,13 @@ case "${action}" in
     ${dir_name}/dep.sh --action=ci
     eval "$(${dir_name}/dep.sh --set_default --action=ci)"
 
-    docker run -it --rm -v $HOME/.ssh:/root/.ssh -v $HOME/.kube:/root/.kube -v ${dir_name}:/root shuliyey/techinical-test:build sh -c 'make up'
+    docker run -it --rm -v $HOME/.ssh:/root/.ssh -v $HOME/.kube:/root/.kube -v ${dir_name}:/root shuliyey/technical-tests:build sh -c 'make up'
     ;;
   ci.down)
     ${dir_name}/dep.sh --action=ci
     eval "$(${dir_name}/dep.sh --set_default --action=ci)"
 
-    docker run -it --rm -v $HOME/.ssh:/root/.ssh -v $HOME/.kube:/root/.kube -v ${dir_name}:/root shuliyey/techinical-test:build sh -c 'make down'
+    docker run -it --rm -v $HOME/.ssh:/root/.ssh -v $HOME/.kube:/root/.kube -v ${dir_name}:/root shuliyey/technical-tests:build sh -c 'make down'
     ;;
   *)
     echo -e "unkown action: ${YELLOW}${action}${NC}, exiting"

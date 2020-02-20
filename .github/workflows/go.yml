@@ -1,0 +1,120 @@
+name: anz-technical-zeyu 🚀 ☸️  🐳 🐧
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - v*
+jobs:
+  golang:
+    name: Golang Pipline
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Set up Go 1.13
+        id: setup-go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.13
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+        id: checkout
+
+      - name: Run test
+        id: run-test
+        run: |
+          make go.test
+
+      - name: Generate `info.txt`
+        id: generate-info
+        run: |
+          make info.generate
+          echo "##[set-output name=info;]$(cat info.txt | sed "s/%/%25/" | sed -z "s/\\n/%0A/g" | sed -z "s/\\r/%0D/g" )"
+
+      - name: Build `app`
+        id: build-app
+        run: |
+          make go.build
+
+      - name: Generate `artifact`
+        id: generate-artifact
+        run: |
+          zip app.zip app info.txt
+
+      - name: Calculate Docker Info
+        id: calculate-docker-info
+        run: |
+          tags=${GITHUB_REF##*/}
+          if echo ${GITHUB_REF} | grep -q -E "^refs/heads/"; then
+            tags=${tags}-${GITHUB_RUN_NUMBER},latest
+          else
+            tags=${tags},stable
+          fi
+          echo "##[set-output name=tag;]${tags%%,*}"
+          echo "##[set-output name=tags;]${tags}"
+          echo "##[set-output name=repository;]$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]')"
+          echo "##[set-output name=actor;]$(echo ${GITHUB_ACTOR} | tr '[:upper:]' '[:lower:]')"
+          
+    #   - name: Publish to Github Registry
+    #     id: publish-github-registry
+    #     uses: elgohr/Publish-Docker-Github-Action@master
+    #     env:
+    #       GO_VERSION: 1.13
+    #     with:
+    #       workdir: src
+    #       name: ${{ steps.calculate-docker-info.outputs.repository }}/app
+    #       registry: docker.pkg.github.com
+    #       username: ${{ steps.calculate-docker-info.outputs.actor }}
+    #       password: ${{ github.token }}
+    #       buildargs: GO_VERSION
+    #       tags: ${{ steps.calculate-docker-info.outputs.tags }}
+    #       cache: ${{ github.event_name != 'schedule' }}
+
+    #   - name: Publish to Dockerhub
+    #     id: publish-dockerhub
+    #     uses: elgohr/Publish-Docker-Github-Action@master
+    #     env:
+    #       GO_VERSION: 1.13
+    #     with:
+    #       workdir: src
+    #       name: ${{ steps.calculate-docker-info.outputs.repository }}
+    #       username: shuliyey
+    #       password: ${{ secrets.DOCKERHUB_TOKEN }}
+    #       buildargs: GO_VERSION
+    #       tags: ${{ steps.calculate-docker-info.outputs.tags }}
+    #       cache: ${{ github.event_name != 'schedule' }}
+
+    #   - name: Create Release
+    #     id: create-release
+    #     uses: actions/create-release@v1
+    #     env:
+    #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+    #     with:
+    #         tag_name: ${{ github.ref }}
+    #         release_name: ${{ github.ref }}
+    #         body: |
+    #           ${{ steps.generate-info.outputs.info }}
+    #           ```bash
+    #           docker run --rm -p 8000:8000 docker.pkg.github.com/${{ steps.calculate-docker-info.outputs.repository }}/app:${{ steps.calculate-docker-info.outputs.tag }}
+    #           curl localhost:8000/version
+    #           ```
+    #           ```bash
+    #           docker run --rm -p 8000:8000 ${{ steps.calculate-docker-info.outputs.repository }}/app:${{ steps.calculate-docker-info.outputs.tag }}
+    #           curl localhost:8000/version
+    #           ```
+    #         draft: false
+    #         prerelease: false
+    #     if: contains(github.ref, 'refs/tags/v')
+
+    #   - name: Upload `artifact` Asset
+    #     id: upload-artifact-asset
+    #     uses: actions/upload-release-asset@v1
+    #     env:
+    #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     with:
+    #       upload_url: ${{ steps.create-release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+    #       asset_path: ./src/app.zip
+    #       asset_name: app.${{ steps.calculate-docker-info.outputs.tag }}.zip
+    #       asset_content_type: application/zip
+    #     if: contains(github.ref, 'refs/tags/v')

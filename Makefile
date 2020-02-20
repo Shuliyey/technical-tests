@@ -1,5 +1,11 @@
 info.generate:
-	./action --action=info.generate
+	./action.sh --action=info.generate
+
+go.test:
+	./action.sh --action=go.test
+
+go.build:
+	./action.sh --action=go.build
 
 go.run:
 	./action.sh --action=go.run
