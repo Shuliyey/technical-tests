@@ -7,12 +7,7 @@ application is a simple http golang application, if you have install local `go` 
 * you can run the application locally through
 
 ```bash
-cd src
-cat << EOF > info.txt
-1.0.0
-$(git rev-parse HEAD)
-$(cat info)
-EOF
+make info.generate
 go run main.go
 ```
 
@@ -20,10 +15,15 @@ below is a screenshot of the application in the browser
 
 ![anz technical zeyu q2 screenshot browser](technical-tests-q2-screenshot-browser.png)
 
+* if you have golint installed under **GOPATH** (`go get -u golang.org/x/lint/golint`)
+
+```bash
+${GOPATH:-${HOME}/go}/bin/golint .
+```
+
 * you can run go unit test locally through
 
 ```bash
-cd src
 go test
 ```
 
@@ -34,12 +34,7 @@ below is a screenshot of unit test results
 * you can build custom docker images (assume you installed `docker` locally) locally through
 
 ```bash
-cd src
-cat << EOF > info.txt
-1.0.0
-$(git rev-parse HEAD)
-$(cat info)
-EOF
+make generate-info
 docker build -t <name>:<tag> .
 ```
 
@@ -68,7 +63,7 @@ below is a screenshot of run custom docker
 
 below are the application environment variables
 
-* **ENV** (optional, default: dev)
+* **BIND_HOST** (optional, default: "0.0.0.0", {type: string})
 * **PORT** (optional, default: 8000, {type: integer, range: [0, 65535]})
 
 ## 4. docker image design
@@ -87,27 +82,45 @@ to ensure enhanced application security at run time, the final docker image use 
 
 cicd pipeline is implemented in [github actions](https://github.com/features/actions), pipeline is defined in [.github/workflows/go.yml](../.github/workflows/go.yml)
 
-pipeline will trigger on the below two events
+pipeline follows below branching designs
+
+
+
+pipeline will trigger on the below events
 
 1. **push to `master` branch**
 
 pipeline triggered under this event will run
 
-* `unit test`
+* `run test`
 * `build artifacts`
 * `build docker images`
 * `push image to github package registry`
 * `push image to dockerhub registry`
 
-example of triggered pipeline on `master` branch [448653554](https://github.com/Shuliyey/technical-tests/runs/448653554?check_suite_focus=true)
+example of triggered pipeline on `master` branch [456994692](https://github.com/Shuliyey/technical-tests/runs/456994692?check_suite_focus=true) (on push to `master` branch)
 
 ![anz technical zeyu q2 pipeline master](technical-tests-q2-pipeline-master.png)
 
-2. **push `'v*'` tags**
+2. **push to `'*/*'` branch**
 
 pipeline triggered under this event will run
 
-* `unit test`
+* `run test`
+* `build artifacts`
+
+3. **pull_request to `master` branch**
+
+pipeline triggered under this event will run
+
+* `run test`
+* `build artifacts`
+
+4. **push `'v*'` tags**
+
+pipeline triggered under this event will run
+
+* `run test`
 * `build artifacts`
 * `build docker images`
 * `push image to github package registry`
@@ -115,7 +128,7 @@ pipeline triggered under this event will run
 * `create release`
 * `upload release artifacts`
 
-example of triggered pipeline on `v*` tags [448540674](https://github.com/Shuliyey/technical-tests/runs/448540674?check_suite_focus=true)
+example of triggered pipeline on `v*` tags [456898515](https://github.com/Shuliyey/technical-tests/runs/456898515?check_suite_focus=true)
 
 ![anz technical zeyu q2 pipeline tags](technical-tests-q2-pipeline-tags.png)
 
@@ -140,6 +153,7 @@ below environment variables can be altered
 * **GO_VERSION** (optional, default: 1.12.6)
 * **IMAGE_NAME** (optional, default: shuliyey/technical-tests)
 * **IMAGE_TAG** (optional, default: latest)
+* **GENERATE_INFO** (optional, default: true)
 
 ### 6.2 docker.run (`make docker.run`)
 

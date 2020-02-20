@@ -48,6 +48,12 @@ refer to [q2-application-containerisation-and-cicd-pipeline](readme/q2-applicati
 
 #### 2.2.1 make
 
+* git info
+
+```bash
+make info.generate
+```
+
 * test
 
 ```bash
