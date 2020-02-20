@@ -25,14 +25,11 @@ jobs:
         id: install-dep
         run: |
           go get -u golang.org/x/lint/golint
-          which curl
-          ls ${HOME}/go/bin
-          echo ${GOPATH}
 
       - name: Run test
         id: run-test
         run: |
-          make go.test
+          PATH="${PATH}:${GOPATH:-${HOME}/go/bin}" make go.test
 
       - name: Generate `info.txt`
         id: generate-info
