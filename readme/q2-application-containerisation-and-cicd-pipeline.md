@@ -70,7 +70,7 @@ below are the application environment variables
 
 ### 4.1 docker `multistage` build
 
-[Dockerfile](../Dockerfile) to build the application image uses `multistage` build to optimise the final application image size/structure, first stage uses `golang` as the base image to build the final binary (`app`), this binary (`app`) is the only artifact that gets passed/embedded to the next stage (which is a clean `alpine` base image)
+[Dockerfile](../Dockerfile) to build the application image uses `multistage` build to optimise the final application image size/structure, first stage uses `golang` as the base image to build the final binary (`golang-test`), this binary (`golang-test`) is the only artifact that gets passed/embedded to the next stage (which is a clean `alpine` base image)
 
 ### 4.2 `nobody` at docker application runtime
 
