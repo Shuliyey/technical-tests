@@ -119,7 +119,7 @@ jobs:
             curl localhost:8000/version
             ```
             ```bash
-            docker run --rm -p 8000:8000 ${{ steps.calculate-docker-info.outputs.repository }}/app:${{ steps.calculate-docker-info.outputs.tag }}
+            docker run --rm -p 8000:8000 ${{ steps.calculate-docker-info.outputs.repository }}:${{ steps.calculate-docker-info.outputs.tag }}
             curl localhost:8000/version
             ```
           draft: false
