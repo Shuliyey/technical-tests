@@ -21,6 +21,7 @@ below terminal **applications/tools** needs to be installed
 * docker
 * make
 * curl
+* git
 * kubernetes-cli (kubectl)
 
 ## 2. Tasks/Steps
