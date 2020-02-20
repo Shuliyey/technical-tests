@@ -2,7 +2,8 @@ name: technical-tests 🚀 ☸️  🐳 🐧
 on:
   push:
     branches:
-      - '*'
+      - '*/*'
+      - 'master'
     tags:
       - v*
 jobs:
