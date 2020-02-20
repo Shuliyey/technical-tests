@@ -161,11 +161,11 @@ This repo's github-actions pipeline is designed to publish docker images on push
 
 ## 6. make tasks
 
-### 6.1 info.generate
+### 6.1 info.generate (`make info.generate`)
 
 generate application related information (e.g `lastcommitsha`, `version`, `description` and etc.)
 
-### 6.2 go.test
+### 6.2 go.test (`make go.test`)
 
 runs lint and unit test
 
@@ -173,7 +173,7 @@ below environment variables can be altered
 
 * **GENERATE_INFO** (optional, default: true)
 
-### 6.3 go.run
+### 6.3 go.run (`make go.run`)
 
 runs application locally
 
@@ -183,7 +183,7 @@ below environment variables can be altered
 * **PORT** (optional, default: 8000)
 * **GENERATE_INFO** (optional, default: true)
 
-### 6.3 go.build
+### 6.3 go.build (`make go.build`)
 
 builds application locally
 
