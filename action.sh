@@ -47,7 +47,7 @@ case "${action}" in
       release=$(git tag --list | sort -V -r | head -n 1)
       release=${release#*v}
       release=(${release//./ })
-      tag=v${release[0]}.$((release[1] + 1)).0-pre
+      tag=v${release[0]:-0}.$((release[1] + 1)).0-pre
     fi
 
     cat << EOF > info.txt
@@ -56,6 +56,7 @@ ${git_sha}
 $(cat info)
 EOF
 
+    go run main.go
     ;;
   docker.build)
     ${dir_name}/dep.sh --action=${action}

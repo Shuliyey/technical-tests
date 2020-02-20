@@ -17,7 +17,7 @@ RUN go build -o golang-test  .
 
 FROM alpine:${ALPINE_VERSION}
 
-LABEL maintainer="叶泽宇/Zeyu Ye <zeyu.ye@contino.io>"
+LABEL maintainer="叶泽宇/Zéyǔ Yè <zeyu.ye@contino.io>"
 
 WORKDIR /app
 

@@ -35,3 +35,6 @@ vendor/
 
 # k8s
 .kube/
+
+# assets
+# info.txt

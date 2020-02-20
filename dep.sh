@@ -72,6 +72,7 @@ check_dep() {
       local missing=()
       local found=()
       local optional=()
+      ;;
     docker.build)
       local DEFAULT_GO_VERSION=$(curl -s "https://golang.org/VERSION?m=text" | sed -E "s/^go//g")
       local DEFAULT_IMAGE_NAME="shuliyey/techinical-test"
