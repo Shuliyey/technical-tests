@@ -2,7 +2,7 @@ name: anz-technical-zeyu 🚀 ☸️  🐳 🐧
 on:
   push:
     branches:
-      - *
+      - '*'
     pull_request:
       - master
     tags:
