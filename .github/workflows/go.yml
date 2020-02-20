@@ -80,7 +80,7 @@ jobs:
           GO_VERSION: 1.13
           ALPINE_VERSION: 3.11
         with:
-          name: ${{ steps.calculate-docker-info.outputs.repository }}/app
+          name: ${{ steps.calculate-docker-info.outputs.repository }}/app2
           registry: docker.pkg.github.com
           username: ${{ steps.calculate-docker-info.outputs.actor }}
           password: ${{ github.token }}
@@ -115,7 +115,7 @@ jobs:
           body: |
             ${{ steps.generate-info.outputs.info }}
             ```bash
-            docker run --rm -p 8000:8000 docker.pkg.github.com/${{ steps.calculate-docker-info.outputs.repository }}/app:${{ steps.calculate-docker-info.outputs.tag }}
+            docker run --rm -p 8000:8000 docker.pkg.github.com/${{ steps.calculate-docker-info.outputs.repository }}/app2:${{ steps.calculate-docker-info.outputs.tag }}
             curl localhost:8000/version
             ```
             ```bash
