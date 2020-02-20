@@ -21,6 +21,13 @@ jobs:
         uses: actions/checkout@v2
         id: checkout
 
+      - name: Install Dep
+        id: install-dep
+        run: |
+          go get -u golang.org/x/lint/golint
+          which curl
+          which golint
+
       - name: Run test
         id: run-test
         run: |
