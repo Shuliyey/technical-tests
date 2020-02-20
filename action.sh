@@ -68,6 +68,10 @@ case "${action}" in
     ${dir_name}/dep.sh --action=${action}
     eval "$(${dir_name}/dep.sh --set_default --action=${action})"
 
+    if [ "$(echo ${GENERATE_INFO} | tr '[[:upper:]]' '[[:lower:]]')" == "true" ]; then
+      generate_git_info
+    fi
+
     msg="running ${CYAN}golint${NC} test ..."
 
     infoMsg "${msg}"
@@ -129,7 +133,7 @@ case "${action}" in
       user="-u ${RUNTIME_USER}"
     fi
 
-    docker run -it --rm ${user} -e PORT=${CONTAINER_PORT} -p ${HOST_PORT}:${CONTAINER_PORT} ${IMAGE_NAME}:${IMAGE_TAG}
+    docker run -it --rm ${user} -e PORT=${CONTAINER_PORT} -e BIND_HOST=${CONTAINER_BIND_HOST} -p ${HOST_PORT}:${CONTAINER_PORT} ${IMAGE_NAME}:${IMAGE_TAG}
     ;;
   k8s.apply)
     ${dir_name}/dep.sh --action=k8s

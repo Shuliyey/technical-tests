@@ -72,6 +72,15 @@ check_dep() {
       local found=()
       local optional=()
       ;;
+    go.test)
+      local DEFAULT_GENERATE_INFO="true"
+
+      local ENVS=()
+      local OPTIONAL_ENV=("GENERATE_INFO")
+      local missing=()
+      local found=()
+      local optional=()
+      ;;
     go.build)
       local DEFAULT_GENERATE_INFO="true"
 
@@ -96,7 +105,7 @@ check_dep() {
       local DEFAULT_GO_VERSION=$(curl -s "https://golang.org/VERSION?m=text" | sed -E "s/^go//g")
       local DEFAULT_ALPINE_VERSION=$(curl -s http://dl-cdn.alpinelinux.org/alpine/ | grep -E '^<a href="v\d' | awk '{print $2}' | sed -E 's/(^href="v.+\/">v|\/<\/a>$)//g' | sort -V -r | head -n 1)
       local DEFAULT_IMAGE_NAME="shuliyey/technical-tests"
-      local DEFAULT_IMAGE_TAG="latest"
+      local DEFAULT_IMAGE_TAG="$(git rev-parse --short HEAD)"
       local DEFAULT_GENERATE_INFO="true"
 
       local ENVS=()
@@ -107,13 +116,14 @@ check_dep() {
       ;;
     docker.run)
       local DEFAULT_CONTAINER_PORT=8000
+      local DEFAULT_CONTAINER_BIND_HOST="0.0.0.0"
       local DEFAULT_HOST_PORT=${DEFAULT_CONTAINER_PORT}
       local DEFAULT_RUNTIME_USER=""
       local DEFAULT_IMAGE_NAME="shuliyey/technical-tests"
-      local DEFAULT_IMAGE_TAG="latest"
+      local DEFAULT_IMAGE_TAG="$(git rev-parse --short HEAD)"
 
       local ENVS=()
-      local OPTIONAL_ENV=("CONTAINER_PORT" "HOST_PORT" "RUNTIME_USER" "IMAGE_NAME" "IMAGE_TAG")
+      local OPTIONAL_ENV=("CONTAINER_PORT" "CONTAINER_BIND_HOST" "HOST_PORT" "RUNTIME_USER" "IMAGE_NAME" "IMAGE_TAG" "BIND_HOST")
       local missing=()
       local found=()
       local optional=()
