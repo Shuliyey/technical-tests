@@ -6,20 +6,21 @@ ANZ technical zeyu
 
 ### 1.1 Git
 
-assuming you are familiar with git (and already have git installed and configured)
-```
+assuming you are familiar with git (and already have git installed and configured
+
+```bash
 git clone https://github.com/Shuliyey/technical-tests.git
 cd technical-tests
 ```
 
 ### 1.2 Local build environment requirements
+
 below terminal **applications/tools** needs to be installed
 
 * bash
 * docker
 * make
 * curl
-* golint
 * kubernetes-cli (kubectl)
 
 ## 2. Tasks/Steps
@@ -89,12 +90,14 @@ cicd pipeline is implemented in [github actions](https://github.com/features/act
 
 list of triggered pipelines can be visited on the repo's github-actions page (https://github.com/Shuliyey/technical-tests/actions)
 
-![anz technical zeyu q1 github actions pipelines](readme/technical-tests-q2-github-actions-pipelines.png)
+![anz technical zeyu q2 github actions pipelines](readme/technical-tests-q2-github-actions-pipelines.png)
 
-below are two examples of triggered pipelines
+below are three examples of triggered pipelines
 
-* [448653554](https://github.com/Shuliyey/technical-tests/runs/448653554?check_suite_focus=true) (on push to `master` branch)
-* [448540674](https://github.com/Shuliyey/technical-tests/runs/448540674?check_suite_focus=true) (on push `'v*'` tags)
+* [456994692](https://github.com/Shuliyey/technical-tests/runs/456994692?check_suite_focus=true) (on push to `master` branch)
+* [456989568](https://github.com/Shuliyey/technical-tests/runs/456989568?check_suite_focus=true) (on push to `'*/*'` branch)
+* [456992006](https://github.com/Shuliyey/technical-tests/runs/456992006?check_suite_focus=true) (on pull_request to `master` branch)
+* [456898515](https://github.com/Shuliyey/technical-tests/runs/456898515?check_suite_focus=true) (on push `'v*'` tags)
 
 ### 2.3 Extra - Deployments (Kubernetes)
 
@@ -110,7 +113,7 @@ make up
 
 **there'll be a section (like below) indicating the endpoint to visit the application and more information such as tailing the application service logs**
 
-![anz techical zeyu q2 screenshot make up endpoint](readme/technical-tests-extra-screenshot-make-up-endpoint.png)
+![technical tests extra screenshot make up endpoint](readme/technical-tests-extra-screenshot-make-up-endpoint.png)
 
 * remove application manifests from kubernetes
 
@@ -132,6 +135,7 @@ make down
 * https://github.com/actions/create-release
 * https://github.com/actions/upload-release-asset
 * https://github.com/marketplace/actions/publish-docker
+* https://github.community/t5/GitHub-Actions/Github-Actions-CI-CD-pipeline-branch-gt-master-gt-release-tag/td-p/29924
 
 ### 3.2 Kubernetes
 * https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure

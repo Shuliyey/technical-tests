@@ -71,7 +71,12 @@ case "${action}" in
     msg="running ${CYAN}golint${NC} test ..."
 
     infoMsg "${msg}"
-    golint .
+
+    if [ ! -f "${GOPATH:-${HOME}/go}/bin/golint" ]; then
+      go get -u golang.org/x/lint/golint
+    fi
+
+    ${GOPATH:-${HOME}/go}/bin/golint .
     infoMsg "${CYAN}golint${NC} returned (status code) ${GREEN}$?${NC}"
     doneMsg "${msg}"
 
